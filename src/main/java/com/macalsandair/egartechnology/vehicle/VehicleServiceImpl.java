@@ -8,9 +8,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
+		
+		
 		switch (vehicleDTO.getVehicleType()) {
 		case "car":
-			Car newCar = new Car(Vehicle)
+			Car newCar = new Car(vehicleDTO);
+			vehicleRepository.save(newCar);
 			break;
 		}
 		return null;
