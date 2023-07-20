@@ -33,6 +33,16 @@ public abstract class Vehicle {
 		this.yearOfManufacture = yearOfManufacture;
 		this.hasTrailer = hasTrailer;
 	}    
+	
+	public Vehicle(VehicleDTO vehicleDTO) {
+		super();
+		this.brand = vehicleDTO.getBrand();
+		this.model = vehicleDTO.getModel();
+		this.category = vehicleDTO.getCategory();
+		this.stateNumber = vehicleDTO.getStateNumber();
+		this.yearOfManufacture = vehicleDTO.getYearOfManufacture();
+		this.hasTrailer = vehicleDTO.isHasTrailer();
+	}    
     
     
 	public Long getId() {
