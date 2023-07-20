@@ -15,7 +15,6 @@ public abstract class Vehicle {
     private String model;
     private Category category;
     private String stateNumber;
-    private VehicleType vehicleType;
     private int yearOfManufacture;
     private boolean hasTrailer;
 	
