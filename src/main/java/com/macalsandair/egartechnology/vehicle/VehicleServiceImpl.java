@@ -10,7 +10,7 @@ public class VehicleServiceImpl implements VehicleService {
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
 		switch (vehicleDTO.getVehicleType()) {
 		case "car":
-			
+			Car newCar = new Car(Vehicle)
 			break;
 		}
 		return null;
