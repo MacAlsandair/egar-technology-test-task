@@ -17,6 +17,9 @@ public class VehicleServiceImpl implements VehicleService {
 				Car newCar = new Car(vehicleDTO);
 				vehicleRepository.save(newCar);
 				break;
+				
+			default:
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Запрос некорректен. Такого типа ТС не может быть в системе");
 			}
 			return null;
 		}
@@ -26,7 +29,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public VehicleDTO updateVehicle(VehicleDTO vehicleDTO, String stateNumber) {
+	public VehicleDTO updateVehicle(VehicleDTO vehicleDTO, Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
