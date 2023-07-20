@@ -53,10 +53,10 @@ public abstract class Vehicle {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public Category getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(Category category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 	public String getStateNumber() {
