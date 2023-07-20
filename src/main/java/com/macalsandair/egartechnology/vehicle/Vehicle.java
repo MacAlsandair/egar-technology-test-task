@@ -13,8 +13,9 @@ public abstract class Vehicle {
     private Long id;
     private String brand;
     private String model;
-    private String category;
+    private Category category;
     private String stateNumber;
+    private TypeOfVehicle typeOfVehicle;
     private int yearOfManufacture;
     private boolean hasTrailer;
 	
