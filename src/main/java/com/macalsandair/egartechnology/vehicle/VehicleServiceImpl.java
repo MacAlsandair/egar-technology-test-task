@@ -3,11 +3,14 @@ package com.macalsandair.egartechnology.vehicle;
 import java.util.List;
 
 public class VehicleServiceImpl implements VehicleService {
+	
+	private VehicleRepository vehicleRepository;
 
 	@Override
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
 		switch (vehicleDTO.getVehicleType()) {
 		case "car":
+			
 			break;
 		}
 		return null;
