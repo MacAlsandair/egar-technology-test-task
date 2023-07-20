@@ -2,21 +2,27 @@ package com.macalsandair.egartechnology.vehicle;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 public class VehicleServiceImpl implements VehicleService {
 	
 	private VehicleRepository vehicleRepository;
 
 	@Override
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
-		
-		
-		switch (vehicleDTO.getVehicleType()) {
-		case "car":
-			Car newCar = new Car(vehicleDTO);
-			vehicleRepository.save(newCar);
-			break;
+		if (!isVehicleAlreadyExist(vehicleDTO.getStateNumber())) {
+			switch (vehicleDTO.getVehicleType()) {
+			case "car":
+				Car newCar = new Car(vehicleDTO);
+				vehicleRepository.save(newCar);
+				break;
+			}
+			return null;
 		}
-		return null;
+		else {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "Этот государственный номер уже есть в системе");
+		}
 	}
 
 	@Override
@@ -31,7 +37,7 @@ public class VehicleServiceImpl implements VehicleService {
 		return null;
 	}
 	
-	private boolean isVehicleAlreadyExist (int stateNumber) {
+	private boolean isVehicleAlreadyExist (String stateNumber) {
 		return true;
 	}
 	
