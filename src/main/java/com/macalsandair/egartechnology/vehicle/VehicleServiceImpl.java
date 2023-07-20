@@ -35,7 +35,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public List<VehicleDTO> searchVehicles(String make, String model) {
+	public List<VehicleDTO> searchVehicles(String brand, String model) {
 		// TODO Auto-generated method stub
 		return null;
 	}
