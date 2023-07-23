@@ -2,9 +2,13 @@ package com.macalsandair.egartechnology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -13,9 +17,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.macalsandair.egartechnology.vehicle.Bus;
 import com.macalsandair.egartechnology.vehicle.Car;
+import com.macalsandair.egartechnology.vehicle.Truck;
 import com.macalsandair.egartechnology.vehicle.Vehicle;
 import com.macalsandair.egartechnology.vehicle.VehicleDTO;
 import com.macalsandair.egartechnology.vehicle.VehicleRepository;
@@ -32,7 +39,7 @@ public class VehicleServiceImplTest {
     
     
     @Test
-    public void whenAddVehicleValidVehicle_thenReturnSameVehicle() {
+    public void whenAddVehicleValidCar_thenReturnSameVehicle() {
         // Arrange
         VehicleDTO vehicleDTO = new VehicleDTO();
         vehicleDTO.setVehicleType("car");
@@ -47,6 +54,45 @@ public class VehicleServiceImplTest {
         
         // Assert
         assertEquals(expectedVehicle, actualVehicle);
+        assertTrue(actualVehicle instanceof Car);
+    }
+
+    @Test
+    public void whenAddVehicleValidTruck_thenReturnSameVehicle() {
+      // Arrange
+      VehicleDTO vehicleDTO = new VehicleDTO();
+      vehicleDTO.setVehicleType("truck");
+      vehicleDTO.setStateNumber("XYZ-456");
+      Vehicle expectedVehicle = new Truck(vehicleDTO);
+
+      when(vehicleRepository.findByStateNumber(any(String.class))).thenReturn(Optional.empty());
+      when(vehicleRepository.save(any(Vehicle.class))).thenReturn(expectedVehicle);
+
+      //Act
+      Vehicle actualVehicle = vehicleService.addVehicle(vehicleDTO);
+
+      // Assert
+      assertEquals(expectedVehicle, actualVehicle);
+      assertTrue(actualVehicle instanceof Truck);
+    }
+
+    @Test
+    public void whenAddVehicleValidBus_thenReturnSameVehicle() {
+       // Arrange
+      VehicleDTO vehicleDTO = new VehicleDTO();
+      vehicleDTO.setVehicleType("bus");
+      vehicleDTO.setStateNumber("MNB-789");
+      Vehicle expectedVehicle = new Bus(vehicleDTO);
+
+      when(vehicleRepository.findByStateNumber(any(String.class))).thenReturn(Optional.empty());
+      when(vehicleRepository.save(any(Vehicle.class))).thenReturn(expectedVehicle);
+
+      //Act
+      Vehicle actualVehicle = vehicleService.addVehicle(vehicleDTO);
+
+      // Assert
+      assertEquals(expectedVehicle, actualVehicle);
+      assertTrue(actualVehicle instanceof Bus);
     }
 
     @Test
@@ -63,54 +109,17 @@ public class VehicleServiceImplTest {
         assertThrows(ResponseStatusException.class, () -> vehicleService.addVehicle(vehicleDTO));
     }
 
-//    @Test
-//    public void whenCreateVehicleWithTypeCar_thenReturnCar() {
-//        // Arrange
-//        VehicleDTO vehicleDTO = new VehicleDTO();
-//        vehicleDTO.setVehicleType("car");
-//
-//        // Act
-//        Vehicle vehicle = vehicleService.createVehicle(vehicleDTO);
-//
-//        // Assert
-//        assertTrue(vehicle instanceof Car);
-//    }
-//
-//    @Test
-//    public void whenCreateVehicleWithTypeBus_thenReturnBus() {
-//        // Arrange
-//        VehicleDTO vehicleDTO = new VehicleDTO();
-//        vehicleDTO.setVehicleType("bus");
-//
-//        // Act
-//        Vehicle vehicle = vehicleService.createVehicle(vehicleDTO);
-//
-//        // Assert
-//        assertTrue(vehicle instanceof Bus);
-//    }
-//
-//    @Test
-//    public void whenCreateVehicleWithTypeTruck_thenReturnTruck() {
-//        // Arrange
-//        VehicleDTO vehicleDTO = new VehicleDTO();
-//        vehicleDTO.setVehicleType("truck");
-//
-//        // Act
-//        Vehicle vehicle = vehicleService.createVehicle(vehicleDTO);
-//
-//        // Assert
-//        assertTrue(vehicle instanceof Truck);
-//    }
-//
-//    @Test
-//    public void whenCreateVehicleWithInvalidType_thenThrowsResponseStatusException() {
-//        // Arrange
-//        VehicleDTO vehicleDTO = new VehicleDTO();
-//        vehicleDTO.setVehicleType("invalidType");
-//
-//        // Act and Assert
-//        assertThrows(ResponseStatusException.class, () -> vehicleService.createVehicle(vehicleDTO));
-//    }
+    @Test
+    public void whenAddVehicleInvalidType_thenThrowsResponseStatusException(){
+        // Arrange
+        VehicleDTO vehicleDTO = new VehicleDTO();
+        vehicleDTO.setVehicleType("invalidType");
+        vehicleDTO.setStateNumber("QWE-321");
+        
+        // Act and Assert
+        assertThrows(ResponseStatusException.class, () -> vehicleService.addVehicle(vehicleDTO));
+    }
+
 
     
 }
