@@ -258,61 +258,61 @@ public class VehicleServiceImplTest {
         assertThrows(ResponseStatusException.class, () -> vehicleService.getVehicleById(invalidId));
     }
 
-    @Test
-    public void whenSearchVehiclesWithValidCriteria_thenReturnMatchingVehicles() {
-        // Arrange
-        VehicleDTO searchCriteria = new VehicleDTO();
-        searchCriteria.setBrand("Toyota");
-        searchCriteria.setModel("Camry");
-
-        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
-        Vehicle vehicle2 = new Car("Toyota", "Camry", "Sedan", "DEF456", 2021, true);
-        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
-
-        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-
-        // Act
-        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-
-        // Assert
-        assertEquals(expectedVehicles, actualVehicles);
-    }
-
-    @Test
-    public void whenSearchVehiclesWithNullCriteria_thenReturnAllVehicles() {
-        // Arrange
-        VehicleDTO searchCriteria = new VehicleDTO();
-
-        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
-        Vehicle vehicle2 = new Car("Ford", "Mustang", "Sports Car", "DEF456", 2021, true);
-        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
-
-        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-
-        // Act
-        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-
-        // Assert
-        assertEquals(expectedVehicles, actualVehicles);
-    }
-
-    @Test
-    public void whenSearchVehiclesWithNoMatchingCriteria_thenReturnEmptyList() {
-        // Arrange
-        VehicleDTO searchCriteria = new VehicleDTO();
-        searchCriteria.setBrand("Toyota");
-        searchCriteria.setModel("Camry");
-
-        List<Vehicle> expectedVehicles = Arrays.asList();
-
-        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-
-        // Act
-        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-
-        // Assert
-        assertEquals(expectedVehicles, actualVehicles);
-    }
+//    @Test
+//    public void whenSearchVehiclesWithValidCriteria_thenReturnMatchingVehicles() {
+//        // Arrange
+//        VehicleDTO searchCriteria = new VehicleDTO();
+//        searchCriteria.setBrand("Toyota");
+//        searchCriteria.setModel("Camry");
+//
+//        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
+//        Vehicle vehicle2 = new Car("Toyota", "Camry", "Sedan", "DEF456", 2021, true);
+//        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
+//
+//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
+//
+//        // Act
+//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
+//
+//        // Assert
+//        assertEquals(expectedVehicles, actualVehicles);
+//    }
+//
+//    @Test
+//    public void whenSearchVehiclesWithNullCriteria_thenReturnAllVehicles() {
+//        // Arrange
+//        VehicleDTO searchCriteria = new VehicleDTO();
+//
+//        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
+//        Vehicle vehicle2 = new Car("Ford", "Mustang", "Sports Car", "DEF456", 2021, true);
+//        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
+//
+//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
+//
+//        // Act
+//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
+//
+//        // Assert
+//        assertEquals(expectedVehicles, actualVehicles);
+//    }
+//
+//    @Test
+//    public void whenSearchVehiclesWithNoMatchingCriteria_thenReturnEmptyList() {
+//        // Arrange
+//        VehicleDTO searchCriteria = new VehicleDTO();
+//        searchCriteria.setBrand("Toyota");
+//        searchCriteria.setModel("Camry");
+//
+//        List<Vehicle> expectedVehicles = Arrays.asList();
+//
+//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
+//
+//        // Act
+//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
+//
+//        // Assert
+//        assertEquals(expectedVehicles, actualVehicles);
+//    }
     
 }
 

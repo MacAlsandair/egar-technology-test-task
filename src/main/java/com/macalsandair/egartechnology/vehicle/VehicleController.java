@@ -37,8 +37,8 @@ public class VehicleController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<Vehicle>> searchVehicles(@RequestBody VehicleDTO vehicleDTO) {
-        List<Vehicle> vehicles = vehicleService.searchVehicles(vehicleDTO);
+    public ResponseEntity<List<Vehicle>> searchVehicles(@RequestBody VehicleSearchCriteria vehicleSearchCriteria) {
+        List<Vehicle> vehicles = vehicleService.searchVehicles(vehicleSearchCriteria);
         return ResponseEntity.ok(vehicles);
     }
 }
