@@ -54,12 +54,11 @@ public class VehicleServiceImpl implements VehicleService {
 	public Vehicle getVehicleById(Long id) {
 		Optional<Vehicle> vehicle = vehicleRepository.findById(id);
 		if (vehicle.isPresent()) {
-			
+			return vehicle.get();
 		}
 		else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no such vehicle with this id");
 		}
-		return null;
 	}
 	
 	
