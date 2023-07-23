@@ -8,7 +8,7 @@ import jakarta.persistence.Transient;
 public class Car extends Vehicle {
 	
 	@Transient
-	private final String vehicleType = "Легковой автомобиль";
+	private final String vehicleType = "car";
 
 	@Override
     @Column(name = "vehicle_type")
