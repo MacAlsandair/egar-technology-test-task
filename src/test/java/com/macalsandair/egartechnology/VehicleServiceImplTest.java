@@ -9,14 +9,17 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +31,7 @@ import com.macalsandair.egartechnology.vehicle.Truck;
 import com.macalsandair.egartechnology.vehicle.Vehicle;
 import com.macalsandair.egartechnology.vehicle.VehicleDTO;
 import com.macalsandair.egartechnology.vehicle.VehicleRepository;
+import com.macalsandair.egartechnology.vehicle.VehicleSearchCriteria;
 import com.macalsandair.egartechnology.vehicle.VehicleServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
@@ -257,63 +261,52 @@ public class VehicleServiceImplTest {
         // Act & Assert
         assertThrows(ResponseStatusException.class, () -> vehicleService.getVehicleById(invalidId));
     }
-
-//    @Test
-//    public void whenSearchVehiclesWithValidCriteria_thenReturnMatchingVehicles() {
-//        // Arrange
-//        VehicleDTO searchCriteria = new VehicleDTO();
-//        searchCriteria.setBrand("Toyota");
-//        searchCriteria.setModel("Camry");
-//
-//        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
-//        Vehicle vehicle2 = new Car("Toyota", "Camry", "Sedan", "DEF456", 2021, true);
-//        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
-//
-//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-//
-//        // Act
-//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-//
-//        // Assert
-//        assertEquals(expectedVehicles, actualVehicles);
-//    }
-//
-//    @Test
-//    public void whenSearchVehiclesWithNullCriteria_thenReturnAllVehicles() {
-//        // Arrange
-//        VehicleDTO searchCriteria = new VehicleDTO();
-//
-//        Vehicle vehicle1 = new Car("Toyota", "Camry", "Sedan", "ABC123", 2020, false);
-//        Vehicle vehicle2 = new Car("Ford", "Mustang", "Sports Car", "DEF456", 2021, true);
-//        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1, vehicle2);
-//
-//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-//
-//        // Act
-//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-//
-//        // Assert
-//        assertEquals(expectedVehicles, actualVehicles);
-//    }
-//
-//    @Test
-//    public void whenSearchVehiclesWithNoMatchingCriteria_thenReturnEmptyList() {
-//        // Arrange
-//        VehicleDTO searchCriteria = new VehicleDTO();
-//        searchCriteria.setBrand("Toyota");
-//        searchCriteria.setModel("Camry");
-//
-//        List<Vehicle> expectedVehicles = Arrays.asList();
-//
-//        when(vehicleRepository.search(searchCriteria)).thenReturn(expectedVehicles);
-//
-//        // Act
-//        List<Vehicle> actualVehicles = vehicleService.searchVehicles(searchCriteria);
-//
-//        // Assert
-//        assertEquals(expectedVehicles, actualVehicles);
-//    }
     
+    @Test
+    public void whenSearchVehiclesWithMatchingCriteria_thenReturnMatchingVehicles() {
+        // Create a mock list of vehicles
+        List<Vehicle> mockVehicles = new ArrayList<>();
+        mockVehicles.add(new Car("Toyota", "Corolla", "Sedan", "ABC123", 2020, false));
+        mockVehicles.add(new Truck("Ford", "F-150", "Pickup", "XYZ789", 2018, true));
+
+        // Mock the vehicle repository to return the mock list of vehicles
+        when(vehicleRepository.findAll()).thenReturn(mockVehicles);
+
+        // Create a search criteria with matching brand and model
+        VehicleSearchCriteria searchCriteria = new VehicleSearchCriteria();
+        searchCriteria.setBrand("Toyota");
+        searchCriteria.setModel("Corolla");
+
+        // Call the searchVehicles method
+        List<Vehicle> result = vehicleService.searchVehicles(searchCriteria);
+
+        // Verify that the result contains the matching vehicles
+        assertEquals(1, result.size());
+        assertEquals("Toyota", result.get(0).getBrand());
+        assertEquals("Corolla", result.get(0).getModel());
+    }
+
+    @Test
+    public void whenSearchVehiclesWithNonMatchingCriteria_thenReturnEmptyList() {
+        // Create a mock list of vehicles
+        List<Vehicle> mockVehicles = new ArrayList<>();
+        mockVehicles.add(new Car("Toyota", "Corolla", "Sedan", "ABC123", 2020, false));
+        mockVehicles.add(new Truck("Ford", "F-150", "Pickup", "XYZ789", 2018, true));
+
+        // Mock the vehicle repository to return the mock list of vehicles
+        when(vehicleRepository.findAll()).thenReturn(mockVehicles);
+
+        // Create a search criteria with non-matching brand and model
+        VehicleSearchCriteria searchCriteria = new VehicleSearchCriteria();
+        searchCriteria.setBrand("Honda");
+        searchCriteria.setModel("Accord");
+
+        // Call the searchVehicles method
+        List<Vehicle> result = vehicleService.searchVehicles(searchCriteria);
+
+        // Verify that the result is an empty list
+        assertTrue(result.isEmpty());
+    }
 }
 
 

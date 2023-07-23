@@ -53,47 +53,12 @@ public class VehicleServiceImpl implements VehicleService {
 		}
 	}
 
-//	@Override
-//    public List<Vehicle> searchVehicles(VehicleSearchCriteria vehicleSearchCriteria) {
-//        return vehicleRepository.search(vehicleSearchCriteria);
-//    }
-
 	private boolean isVehicleAlreadyExist(String stateNumber) {
 		if (vehicleRepository.findByStateNumber(stateNumber).isPresent()) {
 			return true;
 		} else
 			return false;
 	}
-
-//	public List<Vehicle> searchVehicles(VehicleSearchCriteria searchCriteria) {
-//		  // Extract search criteria from the VehicleSearchCriteria object
-//		  String brand = searchCriteria.getBrand();
-//		  String model = searchCriteria.getModel();
-//		  String category = searchCriteria.getCategory();
-//		  String stateNumber = searchCriteria.getStateNumber();
-//		  String vehicleType = searchCriteria.getVehicleType();
-//		  Integer yearOfManufacture = searchCriteria.getYearOfManufacture();
-//		  Boolean hasTrailer = searchCriteria.getHasTrailer();
-//
-//		  // Implement search logic using Spring Data JPA
-//		  if (yearOfManufacture != null && hasTrailer != null) {
-//		    // User passed both parameters
-//		    return vehicleRepository.findByBrandAndModelAndCategoryAndStateNumberAndVehicleTypeAndYearOfManufactureAndHasTrailer(
-//		            brand, model, category, stateNumber, vehicleType, yearOfManufacture, hasTrailer);
-//		  } else if (yearOfManufacture != null) {
-//		    // User passed only yearOfManufacture parameter
-//		    return vehicleRepository.findByBrandAndModelAndCategoryAndStateNumberAndVehicleTypeAndYearOfManufacture(
-//		            brand, model, category, stateNumber, vehicleType, yearOfManufacture);
-//		  } else if (hasTrailer != null) {
-//		    // User passed only hasTrailer parameter
-//		    return vehicleRepository.findByBrandAndModelAndCategoryAndStateNumberAndVehicleTypeAndHasTrailer(
-//		            brand, model, category, stateNumber, vehicleType, hasTrailer);
-//		  } else {
-//		    // User did not pass any of the parameters
-//		    return vehicleRepository.findByBrandAndModelAndCategoryAndStateNumberAndVehicleType(
-//		            brand, model, category, stateNumber, vehicleType);
-//		  }
-//		}
 
 	public List<Vehicle> searchVehicles(VehicleSearchCriteria searchCriteria) {
 		List<Vehicle> allVehicles = vehicleRepository.findAll();
