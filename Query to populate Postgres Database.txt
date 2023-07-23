@@ -1,0 +1,17 @@
+INSERT INTO vehicle (id, dtype, brand, category, hastrailer, model, statenumber, yearofmanufacture) 
+VALUES 
+(1, 'Bus', 'Mercedes', 'M2', false, 'Travego', 'ABZ-159', 1999),
+(2, 'Car', 'BMW', 'B', false, '320i', 'XYZ-123', 2005),
+(3, 'Truck', 'Volvo', 'N1', true, 'FH16', 'CDE-456', 2010),
+(4, 'Bus', 'Setra', 'M2', false, 'S 417', 'SET-679', 2003),
+(5, 'Car', 'Audi', 'B', true, 'A4', 'AUD-789', 2007),
+(6, 'Truck', 'Scania', 'N1', true, 'R500', 'SCA-159', 2012),
+(7, 'Bus', 'Volvo', 'M2', true, '9700', 'VOL-258', 2015),
+(8, 'Car', 'Mercedes', 'B', false, 'C300', 'MER-369', 2020),
+(9, 'Truck', 'MAN', 'N1', false, 'TGX', 'MAN-147', 2014),
+(10, 'Bus', 'Neoplan', 'M2', false, 'Starliner', 'NEO-963', 1995),
+(11, 'Car', 'Toyota', 'B', false, 'Camry', 'TOY-852', 2018),
+(12, 'Truck', 'DAF', 'N2', true, 'XF', 'DAF-741', 2016),
+(13, 'Bus', 'Ikarus', 'M2', true, '256', 'IKA-753', 1990),
+(14, 'Car', 'Honda', 'B', true, 'Accord', 'HON-159', 2009),
+(15, 'Truck', 'Iveco', 'M2', false, 'Stralis', 'IVE-357', 2011);
