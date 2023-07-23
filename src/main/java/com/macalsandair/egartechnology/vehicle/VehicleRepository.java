@@ -11,4 +11,14 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     //List<Vehicle> findByBrandAndModelAndCategoryAndStateNumberAndYearOfManufactureAndHasTrailer(String brand, String model);
     //List<Vehicle> findByField(String brand, String model);
     
+    List<Vehicle> findByBrandAndModelAndCategoryAndStateNumberAndYearOfManufactureAndHasTrailer(
+            String brand, String model, String category, String stateNumber, int yearOfManufacture,
+            boolean hasTrailer);
+    
+    default List<Vehicle> search(VehicleDTO vehicleDTO) {
+        return findByBrandAndModelAndCategoryAndStateNumberAndYearOfManufactureAndHasTrailer(
+                vehicleDTO.getBrand(), vehicleDTO.getModel(), vehicleDTO.getCategory(), vehicleDTO.getStateNumber(),
+                vehicleDTO.getYearOfManufacture(), vehicleDTO.isHasTrailer());
+    }
+    
 }
