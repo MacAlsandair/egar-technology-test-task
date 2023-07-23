@@ -2,10 +2,12 @@ package com.macalsandair.egartechnology.vehicle;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Bus extends Vehicle {
 	
+	@Transient
 	private final String vehicleType = "Автобус";
 
 	@Override
