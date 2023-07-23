@@ -36,7 +36,7 @@ public class VehicleController {
         return ResponseEntity.ok(vehicles);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<Vehicle>> searchVehicles(@RequestBody VehicleDTO vehicleDTO) {
         List<Vehicle> vehicles = vehicleService.searchVehicles(vehicleDTO);
         return ResponseEntity.ok(vehicles);
