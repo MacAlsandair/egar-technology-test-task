@@ -51,6 +51,17 @@ public class VehicleServiceImpl implements VehicleService {
 		return vehicles;
 	}
 	
+	public Vehicle getVehicleById(Long id) {
+		Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+		if (vehicle.isPresent()) {
+			
+		}
+		else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no such vehicle with this id");
+		}
+		return null;
+	}
+	
 	
 
 }
