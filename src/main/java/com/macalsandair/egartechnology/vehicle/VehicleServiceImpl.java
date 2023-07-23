@@ -50,7 +50,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public List<VehicleDTO> searchVehicles(String brand, String model) {
+	public List<VehicleDTO> searchVehicles(VehicleDTO vehicleDTO) {
 		// TODO Auto-generated method stub
 		return null;
 	}
