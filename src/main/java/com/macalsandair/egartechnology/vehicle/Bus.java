@@ -1,7 +1,9 @@
 package com.macalsandair.egartechnology.vehicle;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
+@Entity
 public class Bus extends Vehicle {
 	
 	private final String vehicleType = "Автобус";
