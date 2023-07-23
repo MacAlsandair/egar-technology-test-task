@@ -1,6 +1,7 @@
 package com.macalsandair.egartechnology.vehicle;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,6 +43,12 @@ public class VehicleServiceImpl implements VehicleService {
 	
 	private boolean isVehicleAlreadyExist (String stateNumber) {
 		return true;
+	}
+
+	@Override
+	public List<Vehicle> getAllVehicles() {
+		List<Vehicle> vehicles = vehicleRepository.findAll();
+		return vehicles;
 	}
 	
 	
