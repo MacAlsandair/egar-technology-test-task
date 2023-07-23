@@ -45,7 +45,10 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 	
 	private boolean isVehicleAlreadyExist (String stateNumber) {
-		return true;
+		if (vehicleRepository.findByStateNumber(stateNumber).isPresent()) {
+			return true;
+		}
+		else return false;
 	}
 
 	@Override
