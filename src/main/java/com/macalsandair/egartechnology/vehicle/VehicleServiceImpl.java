@@ -54,10 +54,9 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public List<VehicleDTO> searchVehicles(VehicleDTO vehicleDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<Vehicle> searchVehicles(VehicleDTO vehicleDTO) {
+        return vehicleRepository.search(vehicleDTO);
+    }
 	
 	private boolean isVehicleAlreadyExist (String stateNumber) {
 		if (vehicleRepository.findByStateNumber(stateNumber).isPresent()) {
