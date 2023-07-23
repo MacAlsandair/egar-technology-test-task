@@ -1,11 +1,15 @@
 package com.macalsandair.egartechnology.vehicle;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.InheritanceType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Inheritance;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Vehicle {
 
     @Id
@@ -87,6 +91,8 @@ public abstract class Vehicle {
 	public void setHasTrailer(boolean hasTrailer) {
 		this.hasTrailer = hasTrailer;
 	}
+	
+	public abstract String getVehicleType();
 	
 	
 }
