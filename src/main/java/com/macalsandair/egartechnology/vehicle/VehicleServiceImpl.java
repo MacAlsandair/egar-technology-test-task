@@ -13,29 +13,40 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public Vehicle addVehicle(VehicleDTO vehicleDTO) {
 		if (!isVehicleAlreadyExist(vehicleDTO.getStateNumber())) {
-			switch (vehicleDTO.getVehicleType()) {
-			case "car":
-				Car newCar = new Car(vehicleDTO);
-				return vehicleRepository.save(newCar);
-			case "truck":
-				Truck newTruck = new Truck(vehicleDTO);
-				return vehicleRepository.save(newTruck);
-			case "bus":
-				Bus newBus = new Bus(vehicleDTO);
-				return vehicleRepository.save(newBus);
-			default:
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Запрос некорректен. Такого типа ТС не может быть в системе");
-			}
+			Vehicle createdVehicle = createVehicle(vehicleDTO);
+			return vehicleRepository.save(createdVehicle);
 		}
 		else {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Этот государственный номер уже есть в системе");
 		}
 	}
+	
+	private Vehicle createVehicle(VehicleDTO vehicleDTO) {
+		switch (vehicleDTO.getVehicleType()) {
+		case "car":
+			Car newCar = new Car(vehicleDTO);
+			return newCar;
+		case "truck":
+			Truck newTruck = new Truck(vehicleDTO);
+			return newTruck;
+		case "bus":
+			Bus newBus = new Bus(vehicleDTO);
+			return newBus;
+		default:
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Запрос некорректен. Такого типа ТС не может быть в системе");
+		}
+	}
 
 	@Override
-	public VehicleDTO updateVehicle(VehicleDTO vehicleDTO, Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Vehicle updateVehicle(VehicleDTO vehicleDTO, Long id) {
+		if (vehicleRepository.findById(id).isPresent()) {
+			Vehicle updatedVehicle = createVehicle(vehicleDTO);
+			updatedVehicle.setId(id);
+			return vehicleRepository.save(updatedVehicle);
+		}
+		else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Не существует тс с таким id");
+		}
 	}
 
 	@Override
