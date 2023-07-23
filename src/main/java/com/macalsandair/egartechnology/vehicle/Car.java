@@ -1,6 +1,16 @@
 package com.macalsandair.egartechnology.vehicle;
 
+import jakarta.persistence.Column;
+
 public class Car extends Vehicle {
+	
+	private final String vehicleType = "Легковой автомобиль";
+
+	@Override
+    @Column(name = "vehicle_type")
+	public String getVehicleType() {
+		return vehicleType;
+	}
 
 	public Car() {
 		super();
