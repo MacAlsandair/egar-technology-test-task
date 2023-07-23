@@ -11,18 +11,21 @@ public class VehicleServiceImpl implements VehicleService {
 	private VehicleRepository vehicleRepository;
 
 	@Override
-	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
+	public Vehicle addVehicle(VehicleDTO vehicleDTO) {
 		if (!isVehicleAlreadyExist(vehicleDTO.getStateNumber())) {
 			switch (vehicleDTO.getVehicleType()) {
 			case "car":
 				Car newCar = new Car(vehicleDTO);
-				vehicleRepository.save(newCar);
-				break;
-				
+				return vehicleRepository.save(newCar);
+			case "truck":
+				Truck newTruck = new Truck(vehicleDTO);
+				return vehicleRepository.save(newTruck);
+			case "bus":
+				Bus newBus = new Bus(vehicleDTO);
+				return vehicleRepository.save(newBus);
 			default:
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Запрос некорректен. Такого типа ТС не может быть в системе");
 			}
-			return null;
 		}
 		else {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Этот государственный номер уже есть в системе");
@@ -57,7 +60,7 @@ public class VehicleServiceImpl implements VehicleService {
 			return vehicle.get();
 		}
 		else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There is no such vehicle with this id");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Нет транспортного средства с таким id");
 		}
 	}
 	
