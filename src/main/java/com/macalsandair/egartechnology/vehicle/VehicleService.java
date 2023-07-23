@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface VehicleService {
 	List<Vehicle> getAllVehicles();
-    VehicleDTO addVehicle(VehicleDTO vehicleDTO);
+	Vehicle addVehicle(VehicleDTO vehicleDTO);
     VehicleDTO updateVehicle(VehicleDTO vehicleDTO, Long id);
     List<VehicleDTO> searchVehicles(String brand, String model);
     Vehicle getVehicleById(Long id);
